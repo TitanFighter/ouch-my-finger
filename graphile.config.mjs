@@ -1,7 +1,8 @@
 // @ts-check
 import { makePgService } from "@dataplan/pg/adaptors/pg";
 import AmberPreset from "postgraphile/presets/amber";
-import { makeV4Preset } from "postgraphile/presets/v4";
+import { PostGraphileRelayPreset } from "postgraphile/presets/relay";
+// import { makeV4Preset } from "postgraphile/presets/v4";
 import { PostGraphileConnectionFilterPreset } from "postgraphile-plugin-connection-filter";
 import { PgAggregatesPreset } from "@graphile/pg-aggregates";
 import { PgManyToManyPreset } from "@graphile-contrib/pg-many-to-many";
@@ -15,11 +16,12 @@ import { PgOmitArchivedPlugin } from "@graphile-contrib/pg-omit-archived";
 const preset = {
   extends: [
     AmberPreset.default ?? AmberPreset,
-    makeV4Preset({
-      /* Enter your V4 options here */
-      graphiql: true,
-      graphiqlRoute: "/",
-    }),
+    PostGraphileRelayPreset,
+    // makeV4Preset({
+    //   /* Enter your V4 options here */
+    //   graphiql: true,
+    //   graphiqlRoute: "/",
+    // }),
     PostGraphileConnectionFilterPreset,
     PgManyToManyPreset,
     PgAggregatesPreset,
@@ -40,6 +42,9 @@ const preset = {
     port: 5678,
     websockets: true,
     allowUnpersistedOperation: true,
+
+    graphiql: true,
+    graphiqlPath: "/ruru"
   },
   grafast: {
     explain: true,
